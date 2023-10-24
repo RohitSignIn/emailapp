@@ -61,6 +61,32 @@ const EmailSlice = createSlice({
       }
       return state;
     },
+    emailMarkRead: (state, action) => {
+      if (!action.payload.id) return state;
+
+      state.emails = state.emails.map((email) => {
+        if (email.id == action.payload.id) {
+          email.read = true;
+        }
+        return email;
+      });
+      state.filterEmails = state.emails;
+      return state;
+    },
+
+    emailMarkFavorite: (state, action) => {
+      if (!action.payload.id) return state;
+
+      state.emails = state.emails.map((email) => {
+        if (email.id == action.payload.id) {
+          email.favorite = !email.favorite;
+        }
+        return email;
+      });
+      state.filterEmails = state.emails;
+      state.showEmail.emailFavorite = !state.showEmail.emailFavorite;
+      return state;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchEmails.fulfilled, (state, action) => {
@@ -99,5 +125,6 @@ const EmailSlice = createSlice({
   },
 });
 
-export const { filterEmailsRed } = EmailSlice.actions;
+export const { filterEmailsRed, emailMarkRead, emailMarkFavorite } =
+  EmailSlice.actions;
 export default EmailSlice.reducer;

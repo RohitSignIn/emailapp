@@ -2,12 +2,15 @@ import { useSelector } from "react-redux";
 import EmailCard from "./EmailCard";
 
 export default function EmailList() {
-  const emails = useSelector((state) => state.emails.filterEmails);
+  const emailState = useSelector((state) => state.emails);
+
+  const { filterEmails } = emailState;
+  console.log("Hello from Email Card", filterEmails);
 
   return (
     <div className='flex flex-col gap-4'>
-      {emails &&
-        emails.map((email) => {
+      {filterEmails &&
+        filterEmails.map((email) => {
           return (
             <EmailCard
               key={email.id}

@@ -34,7 +34,7 @@ export default function EmailCard({
       onClick={handleEmailClick}
       id='Email_Card'
       className={`flex gap-4 justify-start p-2 border-2 border-Border rounded-md cursor-pointer ${
-        read ? "bg-ReadBg" : "bg-Background"
+        read ? "bg-ReadBg" : ""
       }`}
     >
       <div>

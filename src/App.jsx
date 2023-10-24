@@ -6,6 +6,7 @@ import { fetchEmails } from "./redux/slices/EmailSlice";
 import "./App.css";
 import TopRow from "./components/TopRow";
 import EmailList from "./components/EmailList";
+import MailBody from "./components/MailBody";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,11 +18,11 @@ function App() {
 
   return (
     <>
-      <div className='m-6'>
+      <div className='p-6 bg-Background'>
         <TopRow />
-        <div className='flex gap-2 items-center justify-center'>
+        <div className='flex gap-2 items-start justify-center'>
           <EmailList />
-          {/* <MailBody /> */}
+          <MailBody />
         </div>
 
         {/* Pagination Start  */}
