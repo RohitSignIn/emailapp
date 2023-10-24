@@ -5,7 +5,6 @@ export default function EmailList() {
   const emailState = useSelector((state) => state.emails);
 
   const { filterEmails } = emailState;
-  console.log("Hello from Email Card", filterEmails);
 
   return (
     <div className='flex flex-col gap-4'>

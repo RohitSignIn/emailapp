@@ -114,11 +114,16 @@ const EmailSlice = createSlice({
       if (action.payload?.body) {
         state.showEmail.emailId = action.payload.id;
         state.showEmail.emailName = action.payload.Name;
-        state.showEmail.emailSub = state.emails[[action.payload.id]].subject;
         state.showEmail.emailBody = action.payload.body;
-        state.showEmail.emailDate = state.emails[[action.payload.id]].date;
-        state.showEmail.emailFavorite =
-          state.emails[[action.payload.id]].favorite;
+
+        state.emails.every((email) => {
+          if (email.id === action.payload.id) {
+            state.showEmail.emailSub = email.subject;
+            state.showEmail.emailDate = email.date;
+            state.showEmail.emailFavorite = email.favorite;
+            return false;
+          }
+        });
       }
       return state;
     });
