@@ -1,12 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useEffect, useState, lazy, Suspense } from "react";
 
 import { fetchEmails } from "./redux/slices/EmailSlice";
 
-import "./App.css";
-import TopRow from "./components/TopRow";
-import EmailList from "./components/EmailList";
-import MailBody from "./components/MailBody";
+const TopRow = lazy(() => import("./components/TopRow"));
+const EmailList = lazy(() => import("./components/EmailList"));
+const MailBody = lazy(() => import("./components/MailBody"));
+const Pagination = lazy(() => import("./components/Pagination"));
 
 function App() {
   const dispatch = useDispatch();
@@ -19,29 +19,26 @@ function App() {
   return (
     <>
       <div className='p-6 bg-Background'>
-        <TopRow />
-        <div className='flex gap-2 items-start justify-center'>
-          <EmailList />
-          <MailBody />
-        </div>
-
-        {/* Pagination Start  */}
-        <div className='flex justify-center my-4 gap-8'>
-          <div>
-            {page > 1 ? (
-              <button onClick={() => setPage(page - 1)}>PREV</button>
-            ) : (
-              <button disabled>PREV</button>
-            )}
+        <Suspense
+          fallback={
+            <div class='w-full h-8 bg-Loading animate-pulse rounded'></div>
+          }
+        >
+          <TopRow />
+          <div className='flex gap-2 min-w-[300px] min-h-[70vh] items-start justify-center'>
+            <div>
+              <EmailList />
+            </div>
+            <MailBody />
           </div>
-          <div>
-            <p>{page}</p>
-          </div>
-          <div>
-            <button onClick={() => setPage(page + 1)}>NEXT</button>
-          </div>
-        </div>
-        {/* Pagination End  */}
+        </Suspense>
+        <Suspense
+          fallback={
+            <div class='w-full h-8 bg-Loading animate-pulse rounded'></div>
+          }
+        >
+          <Pagination page={page} setPage={setPage} />
+        </Suspense>
       </div>
     </>
   );

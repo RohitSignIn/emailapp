@@ -9,6 +9,7 @@ export default {
       TextCol: "#636363",
       FilterBtn: "#E1E4EA",
       ReadBg: "#F2F2F2",
+      Loading: "#D8D9DA",
     },
     extend: {},
   },
